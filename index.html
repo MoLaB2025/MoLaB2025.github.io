@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MO Lab</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header regular-header">
+        <div class="header-container">
+            <a href="index.html" class="site-title">
+                <img src="images/University_of_Hong_Kong.svg.png" alt="The University of Hong Kong" class="site-university-logo">
+                <span class="site-logo-placeholder" aria-hidden="true">Logo</span>
+                <span class="site-title-text">MO Lab</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="people.html">People</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="teaching.html">Teaching</a></li>
+                    <li><a href="grants.html">Grants</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="welcome-section welcome-section--home">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Welcome!</h2>
+            </div>
+            <div class="welcome-content">
+                <div class="image-placeholder image-placeholder--welcome">Photo</div>
+                <p class="welcome-text">xxx</p>
+                <p class="welcome-text">xxx</p>
+                <p class="welcome-text">xxx</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="news-section">
+                <div class="section-header">
+                    <h2 class="section-title">News</h2>
+                </div>
+                <div class="news-grid" id="news-container"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: lab[at]example[dot]edu</p>
+                    <p>Department of Linguistics</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Location</h3>
+                    <p>Research Building, Room 000</p>
+                    <p>University Campus</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MO Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function createNewsImage(news) {
+            if (news.image) {
+                const img = document.createElement('img');
+                img.src = news.image;
+                img.alt = news.imageAlt || '';
+                img.className = 'news-image';
+                return img;
+            }
+            const placeholder = document.createElement('div');
+            placeholder.className = 'image-placeholder image-placeholder--news';
+            placeholder.textContent = 'Photo';
+            placeholder.setAttribute('aria-label', news.imageAlt || 'News image placeholder');
+            return placeholder;
+        }
+
+        async function loadNews() {
+            try {
+                const response = await fetch('news.json');
+                const newsData = await response.json();
+                const container = document.getElementById('news-container');
+
+                newsData.forEach(news => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'news-item';
+
+                    let linksHTML = '';
+                    if (news.links && news.links.length > 0) {
+                        linksHTML = news.links.map(link =>
+                            `<a href="${link.url}" target="_blank" class="news-link">${link.text}</a>`
+                        ).join(' | ');
+                    }
+
+                    const content = document.createElement('div');
+                    content.className = 'news-content';
+                    content.innerHTML = `
+                        <div class="news-date">${news.date}</div>
+                        <h3 class="news-title">${news.title}</h3>
+                        <p class="news-description">${news.description}</p>
+                        ${linksHTML}
+                    `;
+
+                    newsItem.appendChild(createNewsImage(news));
+                    newsItem.appendChild(content);
+                    container.appendChild(newsItem);
+                });
+            } catch (error) {
+                console.error('Error loading news:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadNews);
+    </script>
+</body>
+</html>
