@@ -1,23 +1,16 @@
 [
   {
-    "date": "xxx",
+    "date": "September 2026",
     "image": "",
     "imageAlt": "News placeholder",
-    "title": "xxx",
-    "description": "xxx"
-  },
-  {
-    "date": "xxx",
-    "image": "",
-    "imageAlt": "News placeholder",
-    "title": "xxx",
-    "description": "xxx"
-  },
-  {
-    "date": "Jun 2026",
-    "image": "",
-    "imageAlt": "News placeholder",
-    "title": "Welcome to MO Lab",
+    "title": "Welcome to MoLaB",
     "description": "Our new lab website is now online. Stay tuned for upcoming research updates, publications, and events."
+  },
+  {
+    "date": "November 2025",
+    "image": "",
+    "imageAlt": "News placeholder",
+    "title": "Establishment of the MoLaB lab",
+    "description": "The lab was established in November 2025, following the appointment of Dr. Mohammad Momenian at HKU, and focuses on the cognitive and neural mechanisms of language processing."
   }
 ]
